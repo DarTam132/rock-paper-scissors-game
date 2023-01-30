@@ -26,11 +26,11 @@
 // };
 
 // play();
-const rock = "img/game-element-1.png";
+const rock = "./img/game-element-1.png";
 const img = [
-  "http://127.0.0.1:5500/img/game-element-1.PNG",
-  "http://127.0.0.1:5500/img/game-element-2.PNG",
-  "http://127.0.0.1:5500/img/game-element-3.PNG",
+  "./img/game-element-1.png",
+  "./img/game-element-2.png",
+  "./img/game-element-3.png",
 ];
 
 const userRockBtn = document.querySelector(".rock");
