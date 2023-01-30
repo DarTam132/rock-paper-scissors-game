@@ -26,12 +26,12 @@
 // };
 
 // play();
-const rock = "img/game-element-1.png";
 const img = [
-  "http://127.0.0.1:5500/img/game-element-1.PNG",
-  "http://127.0.0.1:5500/img/game-element-2.PNG",
-  "http://127.0.0.1:5500/img/game-element-3.PNG",
+  "./img/game-element-1.PNG",
+  "./img/game-element-2.PNG",
+  "./img/game-element-3.PNG",
 ];
+const options = ["scissors", "paper", "rock"];
 
 const userRockBtn = document.querySelector(".rock");
 const userPaperBtn = document.querySelector(".paper");
@@ -48,25 +48,42 @@ let userScore = document.querySelector(".user-score");
 let computerScore = document.querySelector(".computer-score");
 let scoreUsr = 0;
 let scoreCmp = 0;
-userScore.textContent = scoreUsr;
-computerScore.textContent = scoreCmp;
 
 const scoreKeeper = () => {
   if (
-    (userChoiceImg.src == img[2] && computerChoiceImg.src == img[0]) ||
-    (userChoiceImg.src == img[1] && computerChoiceImg.src == img[2]) ||
-    (userChoiceImg.src == img[0] && computerChoiceImg.src == img[1])
+    (userChoiceImg.textContent === "rock" &&
+      computerChoiceImg.textContent === "scissors") ||
+    (userChoiceImg.textContent === "paper" &&
+      computerChoiceImg.textContent === "rock") ||
+    (userChoiceImg.textContent === "scissors" &&
+      computerChoiceImg.textContent === "paper")
   ) {
     scoreUsr++;
     userScore.textContent = scoreUsr;
+    console.log(userChoiceImg.textContent, "usr choice");
   } else if (
-    (computerChoiceImg.src == img[2] && userChoiceImg.src == img[0]) ||
-    (computerChoiceImg.src == img[1] && userChoiceImg.src == img[2]) ||
-    (computerChoiceImg.src == img[0] && userChoiceImg.src == img[1])
+    (computerChoiceImg.textContent === "rock" &&
+      userChoiceImg.textContent === "scissors") ||
+    (computerChoiceImg.textContent === "paper" &&
+      userChoiceImg.textContent === "rock") ||
+    (computerChoiceImg.textContent === "scissors" &&
+      userChoiceImg.textContent === "paper")
   ) {
     scoreCmp++;
     computerScore.textContent = scoreCmp;
+    console.log(computerChoiceImg.textContent, "cmp choice");
+  } else {
+    ("ba esti nebun");
   }
+
+  if (scoreUsr === 5) {
+    newRound = false;
+    alert("Congratulations, you win over the computer!");
+  } else if (scoreCmp === 5) {
+    newRound = false;
+    alert("Unfortunatley you lost against the computer!");
+  }
+
   if (scoreUsr === 5) {
     newRound = false;
     alert("Congratulations, you win over the computer!");
@@ -89,33 +106,40 @@ againBtn.addEventListener("click", function () {
 
 userRockBtn.addEventListener("click", function () {
   userChoiceImg.src = img[2];
+  userChoiceImg.textContent = "rock";
+  console.log(userChoiceImg.src, userChoiceImg.textContent);
 });
 
 userPaperBtn.addEventListener("click", function () {
   userChoiceImg.src = img[1];
+  userChoiceImg.textContent = "paper";
+  console.log(userChoiceImg.src, userChoiceImg.textContent);
 });
 
 userScissorsBtn.addEventListener("click", function () {
   userChoiceImg.src = img[0];
+  userChoiceImg.textContent = "scissors";
+  console.log(userChoiceImg.src, userChoiceImg.textContent);
 });
 
+let random = () => Math.floor(Math.random() * 3);
 playBtn.addEventListener("click", function () {
   if (outOfTheShell) {
-    computerChoiceImg.src = img[Math.trunc(Math.random() * 3)];
+    let randomNumber = random();
+    computerChoiceImg.src = img[randomNumber];
+    computerChoiceImg.textContent = options[randomNumber];
     userChoiceImg.classList.remove("hidden");
     computerChoiceImg.classList.remove("hidden");
     scoreKeeper();
     outOfTheShell = false;
+    console.log(`cpuTxt: ${computerChoiceImg.textContent} ,cpuSrc: ${computerChoiceImg.src} 
+      ,imgR: ${img[randomNumber]}
+      , OpR ${options[randomNumber]}
+    `);
   } else if (!outOfTheShell) {
     alert("You have to press the new round button!");
   }
 });
-
-const checkError = () => {
-  if ((outOfTheShell = false)) {
-    alert("You have to press the new round button!");
-  }
-};
 
 newRoundBtn.addEventListener("click", function () {
   if (newRound) {
