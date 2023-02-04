@@ -26,10 +26,11 @@
 // };
 
 // play();
+
 const img = [
-  "./img/game-element-1.PNG",
-  "./img/game-element-2.PNG",
-  "./img/game-element-3.PNG",
+  "./img/game-element-1.png",
+  "./img/game-element-2.png",
+  "./img/game-element-3.png",
 ];
 const options = ["scissors", "paper", "rock"];
 
